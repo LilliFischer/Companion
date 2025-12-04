@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mainElement = document.querySelector('main'); // NEU: Referenz auf das <main> Element
     const hiddenElements = document.querySelectorAll('.scroll-hidden');
-
+    
     function checkVisibility() {
         // Berechnet die aktuelle Scroll-Position und die Höhe des Scroll-Containers
         const scrollPosition = mainElement.scrollTop; 

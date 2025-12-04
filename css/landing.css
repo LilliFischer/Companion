@@ -27,13 +27,14 @@ main {
     height: 100vh; /* Nimmt die volle Höhe des Viewports ein */
     overflow-y: scroll; /* Macht den Hauptinhalt scrollbar */
     /* Versteckt die Standard-Scrollbar, um den Wisch-Effekt zu betonen (optional) */
+    scroll-behavior: smooth;
+
+    transition: background-color 0.5s ease-in-out;
+
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-/* Für Webkit-Browser (Chrome, Safari) */
-main::-webkit-scrollbar {
-    display: none;
-}
+
 
 /* Jede "Stage" wird zu einem Snap-Punkt und muss volle Viewport-Höhe haben */
 #stage1, 
@@ -47,9 +48,22 @@ main::-webkit-scrollbar {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 /* --- Ende Scroll-Snapping --- */
 
+#stage1 {
+    background-color: #f7f3f9; /* Helles Lavendel/Grau für den Start */
+}
+
+#stage2 {
+    background-color: #ffe0f0; /* Sanftes Rosa/Pink für die Erklärung */
+}
+
+#stage3 {
+    background-color: #f0fff0; /* Sehr helles Mint/Grün für die Vitrinen-Übersicht */
+    /* Das ist die Farbe, auf der die vitrine-cards liegen */
+}
 
 /* Wendet die Animation nach dem Laden an */
 #main-header {
