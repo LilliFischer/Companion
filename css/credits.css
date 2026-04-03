@@ -53,16 +53,31 @@ a {
     border-bottom: 1px solid #d60270;
 }
 
-/* Handy-Anpassung fürs Impressum */
+/* Handy-Anpassung (Korrektur für Credits) */
 @media (max-width: 600px) {
-    .legal-container {
-        margin: 60px 20px;
+    main {
+        margin: 40px 20px; /* Weniger Abstand oben als am Laptop */
         padding: 0;
+        width: auto;
     }
-    .legal-title {
-        font-size: 2.5rem;
+
+    /* Der Haupt-Titel "Credits" ist ein h2 in deiner HTML */
+    main > h2 { 
+        font-size: 2.5rem !important; /* Deutlich kleiner für Mobile */
+        margin-bottom: 30px;
     }
-    .contact-grid {
-        grid-template-columns: 1fr;
+
+    .credit-section h2 {
+        font-size: 1rem; /* Sektions-Überschriften (Konzept etc.) */
+    }
+
+    .names-list {
+        grid-template-columns: 1fr; /* Namen untereinander statt nebeneinander */
+        gap: 10px;
+    }
+    
+    /* Footer-Logos auf dem Handy zentrieren */
+    .logo-container {
+        gap: 15px;
     }
 }
