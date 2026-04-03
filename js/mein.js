@@ -66,13 +66,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- FUNKTION: LOOP WARTUNG ---
 
     function maintainLoop() {
-        const scroll = vitrineGrid.scrollTop;
+        const isHorizontal = window.innerWidth >= 1024;
         
-        if (scroll < singleSetHeight) {
-            vitrineGrid.scrollTop = scroll + singleSetHeight; 
-        } 
-        else if (scroll >= singleSetHeight * 2) {
-            vitrineGrid.scrollTop = scroll - singleSetHeight;
+        if (isHorizontal) {
+            const scrollX = vitrineGrid.scrollLeft;
+            // Nutze die exakte Breite der ersten Karte + Gap
+            const cardWidth = vitrineCards[0].offsetWidth;
+            const gap = 30; // Muss exakt dem 'gap' in der landing.css entsprechen
+            const singleSetWidth = originalCardCount * (cardWidth + gap);
+    
+            // KORREKTUR: Der Sprung muss exakt die Breite eines ganzen Sets betragen
+            if (scrollX <= 0) {
+                vitrineGrid.scrollLeft = singleSetWidth;
+            } else if (scrollX >= singleSetWidth * 2) {
+                vitrineGrid.scrollLeft = scrollX - singleSetWidth;
+            }
+        } else {
+            const scrollY = vitrineGrid.scrollTop;
+            const cardHeight = vitrineCards[0].offsetHeight;
+            const gapY = 30; 
+            const singleSetHeight = originalCardCount * (cardHeight + gapY);
+    
+            if (scrollY <= 0) {
+                vitrineGrid.scrollTop = singleSetHeight;
+            } else if (scrollY >= singleSetHeight * 2) {
+                vitrineGrid.scrollTop = scrollY - singleSetHeight;
+            }
         }
     }
 
@@ -105,26 +124,43 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- FUNKTION: ZENTRIERUNG UND INHALT (KERNLOGIK) ---
 
     function highlightCenterCard() {
-        const gridCenterY = vitrineGrid.scrollTop + vitrineGrid.clientHeight / 2;
-        let currentCenterCard = null; 
-
-        // 1. Skalierung und zentrierteste Karte finden
+        const isHorizontal = window.innerWidth >= 1024;
+    
+        let gridCenter;
+        let currentCenterCard = null;
+    
+        if (isHorizontal) {
+            gridCenter = vitrineGrid.scrollLeft + vitrineGrid.clientWidth / 2;
+        } else {
+            gridCenter = vitrineGrid.scrollTop + vitrineGrid.clientHeight / 2;
+        }
+    
         vitrineCards.forEach(card => {
-            const cardCenterY = card.offsetTop + card.clientHeight / 2;
-            const distance = Math.abs(gridCenterY - cardCenterY);
-            const threshold = card.clientHeight * 1.5;
-
+            let cardCenter;
+            let distance;
+            let threshold;
+    
+            if (isHorizontal) {
+                cardCenter = card.offsetLeft + card.clientWidth / 2;
+                distance = Math.abs(gridCenter - cardCenter);
+                threshold = card.clientWidth * 1.5;
+            } else {
+                cardCenter = card.offsetTop + card.clientHeight / 2;
+                distance = Math.abs(gridCenter - cardCenter);
+                threshold = card.clientHeight * 1.5;
+            }
+    
             let scale = minScale;
-
+    
             if (distance < threshold) {
                 const scaleDiff = maxScale - minScale;
                 scale = maxScale - (distance / threshold) * scaleDiff;
-
+    
                 const depth = (distance / threshold) * maxDepth;
-
+    
                 card.style.transform = `scale(${scale}) translateZ(${depth}px)`;
                 card.style.zIndex = 10;
-
+    
                 if (!currentCenterCard || distance < currentCenterCard.distance) {
                     currentCenterCard = { card, distance };
                 }
@@ -133,41 +169,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.style.zIndex = 1;
             }
         });
-        
-        
-        // 2. AGGRESSIVES RESET: Alle Nicht-Zentrierten zurücksetzen
+    
+        // RESET
         vitrineCards.forEach(card => {
-            const isCurrentlyCentered = currentCenterCard && card === currentCenterCard.card;
-
-            if (!isCurrentlyCentered && card.classList.contains("active")) {
+            const isCentered = currentCenterCard && card === currentCenterCard.card;
+    
+            if (!isCentered && card.classList.contains("active")) {
                 const cardIndex = card.getAttribute('data-index');
                 const innerCard = card.querySelector('.inner-card');
-
+    
                 card.classList.remove("active");
-                
-                // Setzt den gespeicherten Originalinhalt zurück
+    
                 if (innerCard) {
                     innerCard.innerHTML = originalCardContents[cardIndex];
                 }
             }
         });
-
-
-        // 3. INHALT AUSTAUSCHEN und Aktivierung
+    
+        // AKTIVIEREN
         if (currentCenterCard) {
             const card = currentCenterCard.card;
             const index = card.getAttribute('data-index');
-
+    
             if (!card.classList.contains("active")) {
-                
                 const txt = card.getAttribute("data-detail-text");
                 const detailCardElement = card.querySelector(".detail-card");
-
-                // Setze den Detailtext in den detail-card Container
+    
                 if (detailCardElement) {
-                     detailCardElement.innerHTML = `<p>${txt}</p>`;
+                    detailCardElement.innerHTML = `<p>${txt}</p>`;
                 }
-                
+    
                 card.classList.add("active");
                 lastCenterIndex = index;
             }

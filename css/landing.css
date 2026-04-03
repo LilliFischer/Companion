@@ -8,23 +8,26 @@
     opacity: 0;
     animation: slideInTitle 1s ease-out forwards;
     animation-delay: var(--delay, 0s);
-    margin-top: 10px;
+    margin-top: 0px;
     }
-    
+
+    main {
+      scroll-snap-type: y proximity;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      display: flex;          /* NEU: Aktiviert Flexbox */
+      flex-direction: column; /* NEU: Stapelt die Sektionen untereinander */
+      align-items: stretch;    /* NEU: Zentriert alle Sektionen horizontal */
+      width: 100%;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      }
+
     #main-header {
-    margin-bottom: 400px;
+    margin-bottom: 240px;
     text-align: center;
     width: 100%;
-    }
-    
-    main {
-    scroll-snap-type: y mandatory;
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    text-align: center;
     }
     
   #stage1, #stage2 {
@@ -32,19 +35,24 @@
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
+    font-family: 'StandardFont', sans-serif;
   }
     
 #stage1 {
   height: 130vh;
-  padding-top: 350px;
-  background-color: #d6026f14;
+  padding-top: 70px;
+  background-color: #ffe0f7;
+  color: #734F96;
 }
 
 #stage2 {
   height: 100vh;
+  background-color:#ebd8ff;
+  font-family: 'StandardFont', sans-serif;
+  color: #d60270;
 }
 
 
@@ -86,33 +94,72 @@
   height: 30px;
   animation: pulse 1.5s infinite; /* Die pulsierende Animation */
 }
+
 /* --- GRID MIT 3D EFFEKT --- */
 .vitrine-grid {
 height: 100vh;
-width: 100%;
-max-width: 300px;
+width: 50%;
 display: flex;
 flex-direction: column;
 gap: 30px;
-overflow-y: scroll;
-scroll-snap-type: y mandatory;
+overflow-y: auto;
+overflow-x: hidden;
+scroll-snap-type: none;
 padding: 10px 0;
 -ms-overflow-style: none;
 scrollbar-width: none;
-perspective: 1000px; /* 3D Effekt */
+align-items: center;
+perspective: 1000px; 
+    perspective-origin: center;
+}
+
+/* Versteckt die Scrollbar auch im horizontalen Modus */
+.vitrine-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .vitrine-card {
 display: block;
 max-width: 100%;
 height: 250px;
+flex-shrink: 0;
 text-decoration: none;
 color: inherit;
 scroll-snap-align: center;
-flex-shrink: 0;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
-transform-style: preserve-3d;
 transform: scale(0.8);
+}
+
+@media (min-width: 1024px) {
+  .vitrine-grid {
+      flex-direction: row;      /* Von oben-nach-unten zu links-nach-rechts */
+      height: 60vh;          /* Nutzt fast die volle Bildschirmbreite */
+      width: 100%;            /* Volle Breite für das Karussell */
+     max-width: 100%;
+     padding: 0 20vw;
+      overflow-x: auto;       /* Scrollen jetzt horizontal */
+      overflow-y: hidden;       /* Vertikales Scrollen im Grid deaktivieren */
+      scroll-snap-type: none; /* Einrasten jetzt horizontal */
+      scroll-behavior: auto;
+      align-items: center;      /* Karten vertikal mittig ausrichten */
+      gap: 30px;
+  }
+
+  .vitrine-card {
+      width: 300px;             /* Feste Breite für die Karten im Laptop-Modus */
+      height: 400px;
+      flex-shrink: 0;           /* Verhindert, dass die Karten zusammengedrückt werden */
+      scroll-snap-align: center;
+      transform: scale(0.9);    /* Etwas kleiner als Standard */
+      max-width: none;
+      justify-content: center;
+    }
+    .detail-card {
+      display: none;
+      font-size: 1.2em;
+      text-align: center;
+      margin-top: 70px;
+      }
 }
 
 /* Inhalt getrennt: Standard + Detailmodus */
@@ -122,25 +169,18 @@ transform: scale(0.8);
 display: none;
 font-size: 1.2em;
 text-align: center;
-padding-top: 70px;
+padding-top: 90px;
+
 }
 
 .vitrine-card.active .inner-card {
   display: none;
+  opacity: 0;
+    transform: scale(0.9);
 }
 
 .vitrine-card.active .detail-card {
   display: block;
-}
-
-.vitrine-image:hover {
-  z-index: 10;
-  transform: scale(1.2);
-}
-
-.detail-card:hover {
-  z-index: 10;
-  transform: scale(1.2);
 }
 
 /* Overlay abgeschaltet */
@@ -160,42 +200,4 @@ padding-top: 70px;
 
 .inner-card {
     height: 100%;
-}
-
-#stage-footer {
-  scroll-snap-align: start;
-  height: 50vh; /* Oder 'auto' mit padding, falls er kürzer sein soll */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7f3f9; /* Ein ganz helles Lila/Grau zur Absetzung */
-}
-
-.footer-content {
-  max-width: 600px;
-  width: 100%;
-}
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-logo {
-  height: 60px; /* Größe der Logos anpassen */
-  width: auto;
- opacity: 0.8;
-  }
-
-.footer-links {
-  margin-bottom: 40px;
-}
-
-.footer-links a {
-  color: #d60270;
-  margin: 0 15px;
-  font-family: 'StandardFont', sans-serif;
 }

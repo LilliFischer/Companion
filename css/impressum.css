@@ -1,0 +1,68 @@
+/* --- IMPRESSUM STYLES --- */
+.legal-page {
+    background-color: #f200ba1b;/* Dein Soft-Lila */
+    text-align: center; /* Impressum liest sich linksbündig besser */
+    overflow-y: auto; /* Scrollen erlauben */
+    height: auto;
+}
+
+.legal-container {
+    max-width: 800px;
+    margin: 80px auto; /* Platz für die Navigation oben */
+    padding: 0 40px;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.legal-section {
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(214, 2, 112, 0.2); /* Dezent pinke Trennlinie */
+    padding-top: 20px;
+    color: #734F96;
+}
+
+.legal-section h2 {
+    font-family: 'StandardFont', sans-serif; /* Konsistent zum Footer/Text */
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #d60270;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.small-print {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.legal-container a {
+    color: #d60270;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border 0.3s;
+}
+
+.legal-container a:hover {
+    border-bottom: 1px solid #d60270;
+}
+
+/* Handy-Anpassung fürs Impressum */
+@media (max-width: 600px) {
+    .legal-container {
+        margin: 60px 20px;
+        padding: 0;
+    }
+    .legal-title {
+        font-size: 2.5rem;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}

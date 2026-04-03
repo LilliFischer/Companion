@@ -6,13 +6,52 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'StandardFont';
+    src: url('../assets/fonts/Standard.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    /* Der Stern wird hier mathematisch exakt in einer 48x48 Box zentriert */
+    --stern-cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48' style='fill:%23d60270;'><text y='36' x='24' font-family='sans-serif' font-size='40' text-anchor='middle'>*</text></svg>") 24 24, auto;
+}
+
+/* Zuweisung an alle Elemente gleichzeitig, um Rechenpausen des Browsers zu stoppen */
+html, body, a, button, .nav-circle, .vitrine-card, .footer-logo, .footer-links a {
+    cursor: var(--stern-cursor) !important;
+}
+
+/* --- 2. KLICKBEREICH ERWEITERN (INVISIBLE HITBOX) --- */
+/* Dies sorgt dafür, dass Links schon reagieren, bevor der Stern den Text berührt */
+.nav-circle, .footer-logo, .footer-links a {
+    position: relative;
+}
+.nav-circle::after, .footer-logo::after, .footer-links a::after {
+    content: '';
+    position: absolute;
+    top: -15px;    /* 15px Puffer nach oben */
+    bottom: -50px; /* 15px Puffer nach unten */
+    left: -15px;   /* 15px Puffer nach links */
+    right: -15px;  /* 15px Puffer nach rechts */
+    border-radius: 50%; /* Für die runden Nav-Elemente */
+    z-index: 10;
+}
+
 /* --- GLOBALE STYLES (Optional: Für den Mobile-First-Look) --- */
 body {
-    font-family: sans-serif; /* Platzhalter */
+    font-family: 'StandardFont', sans-serif;
+    font-size: 20px;
     margin: 0;
     text-align: center;
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' style='fill:%23d60270;font-family:sans-serif;font-size:45px;'><text y='38' x='5'>*</text></svg>") 24 24, auto;
+   }
+
+/* Für klickbare Elemente */
+a, button, .nav-circle, .vitrine-card {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' style='fill:%23d60270;font-family:sans-serif;font-size:45px;'><text y='35' x='12'>*</text></svg>") 24 24, auto;
 }
+
+
 h2 {
     font-family: 'QueeringFont', sans-serif;
     font-size: 3em;
@@ -67,10 +106,10 @@ a, button, .nav-circle, .vitrine-card {
 /* Hover-Effekt (Kurze Füllung beim Berühren) */
 .nav-circle:hover {
     background-color: #d60270; /* Füllt den Kreis beim Hover mit Neon-Pink */
-    }
+}
 
 .nav-circle:hover .icon {
-    color: white; /* Macht das Icon weiß beim Hover */
+    color: #734F96; /* Macht das Icon weiß beim Hover */
 }
 
 /* AKTIVER ZUSTAND (Wenn man sich auf der Seite befindet) */
@@ -79,8 +118,50 @@ a, button, .nav-circle, .vitrine-card {
 }
 
 .nav-circle.active .icon {
-    color: white; /* Das Icon bleibt weiß auf dem Pink */
+    color: #734F96; /* Das Icon bleibt weiß auf dem Pink */
+}
+#stage-footer {
+    scroll-snap-align: start;
+    height: 60vh; /* Oder 'auto' mit padding, falls er kürzer sein soll */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #ffe0f7 /* Ein ganz helles Lila/Grau zur Absetzung */
+  }
+  
+  .footer-content {
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .logo-container {
+    display: flex;
+    flex-wrap: wrap; /* Wichtig für die Handy-Ansicht! */
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px; /* Horizontaler Abstand zwischen Logos in einer Reihe */
+    row-gap: 0px;
+    max-width: 900px;
+    margin-bottom: 50px;
 }
 
+  .footer-links {
+    margin-bottom: 40px;
+  }
+  
+  .footer-links a {
+    color: #d60270;
+    margin: 0 15px;
+    font-family: 'StandardFont', sans-serif;
+    font-size: 25px;
+    text-decoration: none; /* Keine Standard-Unterstreichung */
+    border-bottom: 1px solid transparent; /* Unsichtbare Linie für den Platzhalter */
+    transition: border-bottom 0.3s ease; /* Weicher Übergang */
+}
 
+.footer-links a:hover {
+    border-bottom: 1px solid #d60270; /* Linie erscheint beim Hover */
+}
 
