@@ -1,0 +1,168 @@
+/* Die Karte als Ganzes */
+.google-search-card {
+    background: #ebd8ff;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    margin: 20px auto 40px auto;
+    max-width: 650px;
+    text-align: left;
+}
+
+/* Die Fake-Suchleiste oben */
+.search-bar-mockup {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d60270;
+    border-radius: 24px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: #ffe0f7;
+}
+
+.search-icon {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    }
+
+.search-icon-right {
+    margin-left: auto;   /* Dies schiebt die Lupe nach ganz rechts */
+    display: flex;
+    align-items: center;
+    color: #d60270;      /* Farbe der Lupe passend zu deinem Design */
+    }
+
+.search-query {
+    font-family: 'StandardFont', sans-serif;
+    font-size: 1rem;
+    color: #734F96;
+    margin-top: 3px;
+}
+
+/* Das eigentliche Ergebnis-Feld */
+.search-result-content p {
+    font-size: 0.95rem;
+    line-height: 1.58;
+    color: #734F96;
+    margin-bottom: 12px;
+}
+
+/* Der typische blaue Google-Link */
+.google-link {
+    color: #d60270;
+}
+
+/* Quugel-Logo-Styling (Farben und Animation) */
+.quugel-logo {
+    display: flex;
+    color: #d60270; /* Neon-Pink für den Text */
+    margin-right: 15px; /* Abstand zum Suchtext */
+    font-size: 1.2rem; /* Passend zur Textgröße */
+}
+
+.quugel-logo span {
+    font-family: 'Standard', sans-serif; /* Deine grafische Font */
+    font-weight: bold;
+    display: inline-block;
+    }
+/* Container für die Gegenüberstellung */
+.comparison-grid {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Stapelt sich auf dem Handy automatisch */
+}
+
+.comparison-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.comparison-intro {
+    
+    color: #734F96;
+
+    border-bottom: 1px solid rgba(214, 2, 112, 0.2);
+    padding-bottom: 50px;
+}
+
+.side-title {
+    font-family: 'StandardFont', sans-serif;
+    color: #d60270;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    font-size: 1.2rem;
+}
+
+/* Foto-Styling */
+.photo-container {
+    margin-bottom: 20px;
+}
+
+.comparison-img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 8px 8px 0px rgba(214, 2, 112, 0.2); /* Dein Poster-Schatten */
+    display: block;
+}
+
+.photo-label {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #734F96;
+    margin-top: 10px;
+}
+
+/* Responsive Anpassung für Mobile */
+@media (max-width: 768px) {
+    .comparison-grid {
+        flex-direction: column;
+    }
+}
+/* Versteckt den Player komplett */
+#youtube-player {
+    display: none;
+}
+
+.audio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #d60270;
+    color: #ffe0f7;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'StandardFont', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px rgba(214, 2, 112, 0.2);
+    transition: all 0.3s ease;
+}
+
+.audio-btn:hover {
+    transform: scale(1.05);
+    background: #734F96;
+    color: #ffe0f7;
+    box-shadow: 6px 6px 0px rgba(115, 79, 150, 0.3);
+
+}
+.audio-button-container {
+    display: flex;            /* Aktiviert Flexbox */
+    justify-content: center;  /* Zentriert den Button horizontal */
+    align-items: center;      /* Zentriert den Button vertikal (optional) */
+    width: 100%;              /* Nimmt die volle Breite der Karte ein */
+    margin: 30px 0;           /* Erzeugt Abstand nach oben und unten */
+}
+
+/* Dein Button-Styling bleibt gleich, wir stellen nur sicher, dass er kein 'margin: auto' braucht */
+.audio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* ... restliches Styling ... */
+}

@@ -1,0 +1,350 @@
+/* Die gesamte Glossar-Karte */
+body {
+    background-color: #ffe0f7; /* Heller Hintergrund für die gesamte Seite */
+    
+}
+
+.glossar-card-bg {
+    background-color: #ebd8ff; /* Weißer Hintergrund für den Karten-Look */
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.glossar-title {
+    font-family: StandardFont, sans-serif;
+    text-transform: uppercase;
+    margin-top: 0 !important;
+    font-size: 2rem !important;
+    color: #d60270 !important;
+    text-align: center;
+}
+
+
+/* Die einzelnen Begriffe innerhalb der Karte */
+.glossar-items details {
+    font-size: 0.95rem;
+    line-height: 1.25;
+    padding: 15px 0;
+}
+
+.glossar-items summary {
+    color: #d60270;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
+
+.glossar-items summary::after {
+    content: '+';
+    color: #d60270;
+    transition: transform 0.3s ease;
+}
+
+.glossar-items details[open] summary::after {
+    transform: rotate(45deg); /* Optional: Drehung statt Text-Wechsel */
+    color: #734F96;
+}
+
+.glossar-items details[open] summary {
+    color: #734F96;
+}
+
+
+
+.glossar-items .answer {
+    padding-top: 10px;
+    color: #734F96;
+    font-size: 0.95rem;
+}
+
+/* Container für genau zwei Karten */
+.dual-card-container {
+    display: flex;
+    justify-content: center; /* Zentriert die beiden Karten */
+    align-items: flex-start; /* Richtet die Karten am oberen Rand aus */
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Lässt Karten auf dem Handy untereinander rutschen */
+}
+
+/* Styling der einzelnen Info-Karten anpassen */
+.info-card-item {
+    flex: 1; /* Karten teilen sich den Platz gleichmäßig */
+    min-width: 280px; /* Mindestbreite, damit sie nicht zu schmal werden */
+    max-width: 400px; /* Verhindert, dass sie am Laptop zu riesig werden */
+    background-color: #ebd8ff;
+    border-radius: 10px;
+    padding: 20px; /* Etwas mehr Platz im Inneren */
+    text-align: left; /* Textfluss linksbündig ist bei zwei Karten meist schöner */
+    box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+
+/* Handy-Spezifisch: Volle Breite nutzen */
+@media (max-width: 600px) {
+    .info-card-item {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+}
+/* Styling der einzelnen Info-Karten */
+.info-card-item {
+    flex: 0 0 150px; /* Feste Breite der Karten */
+    background-color: #ebd8ff;
+     /* Lila Rand passend zum Thema */
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    scroll-snap-align: center;
+    box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2); /* Pinker Schatten-Akzent */
+    transition: transform 0.3s ease;
+}
+
+.info-card-item p {
+    font-size: 0.9rem;
+    color: #734F96;
+    line-height: 1.4;
+    
+}
+
+/* --- KLICKBARE INFO-KARTEN LOGIK --- */
+
+/* Basis-Styling der Karten als Details-Element */
+details.info-card-item {
+    overflow: hidden; /* Verhindert Inhalts-Flackern beim Öffnen */
+    max-height: 100px; /* Kompakte Höhe im geschlossenen Zustand */
+}
+
+
+
+/* Der sichtbare Titel-Bereich */
+details.info-card-item summary {
+    list-style: none; /* Entfernt Standard-Pfeil */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 0.3s ease;
+}
+
+/* Entfernt den Standard-Pfeil in Webkit-Browsern */
+details.info-card-item summary::-webkit-details-marker {
+    display: none;
+}
+
+
+
+/* Das '+' Icon */
+.expand-icon {
+    font-size: 1.5rem;
+    color: #d60270;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+
+/* --- ZUSTAND: GEÖFFNET (details[open]) --- */
+
+details.info-card-item[open] {
+    max-height: 500px; /* Genug Platz für den aufgeklappten Text */
+    background-color:  #ebd8ff;
+    border-color: #d60270; /* Pinker Rand, wenn aktiv */
+    box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2); /* Pinker Schatten-Akzent */
+    }
+
+
+
+details.info-card-item[open] h2 {
+    color: #734F96;/* Titel wird pink, wenn offen */
+}
+
+/* Dreht das Plus-Zeichen zum Minus */
+details.info-card-item[open] .expand-icon {
+    transform: rotate(45deg); /* Optional: Drehung statt Text-Wechsel */
+    color: #734F96;
+}
+
+/* Der verborgene Detail-Text */
+.card-details {
+    opacity: 0;
+    transform: translateY(-10px);
+    }
+
+details.info-card-item[open] .card-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-details p {
+    font-size: 0.95rem;
+    line-height: 1.25;
+}
+/* Checkbox funktionsfähig, aber unsichtbar */
+.flip-checkbox {
+    display: none;
+}
+
+/* Die Karte selbst als Hauptelement */
+.flip-card-freistehend {
+    display: block;
+    width: 100%;
+    max-width: 550px; /* Maximale Breite der Postkarte */
+    aspect-ratio: 3 / 2;
+    margin: 40px auto;
+    perspective: 1500px;
+    position: relative;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    }
+
+/* --- Logik: Wenn Checkbox aktiv, dann drehen --- */
+.flip-checkbox:checked + .flip-card-freistehend .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front img, .flip-card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+/* Dreht das Bild auf der Rückseite der 3. Karte um 90 Grad nach links */
+#card-trigger-3 + .flip-card-freistehend .flip-card-back img {
+    transform: rotate(-90deg);
+    
+}
+
+/* Dein Puls-Hinweis */
+.flip-hint {
+    position: absolute;
+    top: -10px;
+    right: 80px;
+    transform: rotate(10deg);
+    background: #d60270;
+    color: #ffe0f7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: 'StandardFont', sans-serif;
+    font-size: 0.9rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    
+}
+
+/* Hover-Effekt wie bei den anderen Karten */
+.flip-hint:hover {
+    animation-play-state: paused;
+    rotate: -0.5deg;
+    transform: translateY(-5px); /* Leichte Bewegung nach oben */
+    box-shadow: 8px 8px 0px rgba(115, 79, 150, 0.3);
+}
+/* Styling für die Transkription unter der Postkarte */
+.transcription-details {
+    max-width: 550px;
+    margin: -10px auto 40px auto; /* Rückt nah an die Karte ran */
+    text-align: left;
+    padding: 10px;
+    }
+
+.transcription-details summary {
+    font-family: 'StandardFont', sans-serif;
+    color: #d60270;
+    font-size: 1.15rem;
+    list-style: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.transcription-details[open] summary {
+    color:#734F96; 
+}
+
+.transcription-content {
+    padding: 15px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+    background: #ebd8ff;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    
+   }
+
+.transcription-content {
+    text-align: center;
+    color: #734F96; /* Handschriftlicher Text in Lila-Italic wirkt authentisch */
+}
+/* Container für die Links */
+.link-list-container {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 650px;
+    text-align: left;
+}
+
+.link-list-container p {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Der eigentliche Link-Stil */
+.link-list-container a {
+    justify-content: center; /* Zentriert den Text horizontal im Button */
+    align-items: center;
+    display: flex;
+    color: #d60270; /* Dein dunkles Lila */
+    background: #ebd8ff; /* Hell-Lila Hintergrund wie Glossar */
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px rgba(214, 2, 112, 0.2);
+}
+
+/* Hover-Effekt: Pinker Akzent */
+.link-list-container a:hover {
+    
+    transform: translateX(5px);
+    color: #734F96; /* Dein Neon-Pink */
+    box-shadow: 6px 6px 0px rgba(115, 79, 150, 0.3);
+}
+
+/* Optional: Icon vor dem Link simulieren */
+.link-list-container a::before {
+    text-align: center;
+    color: #d60270;
+}
+/* Entfernt den border-bottom-Effekt aus der impressum.css für die Karten */
+.legal-container .link-list-container a, 
+.legal-container .link-list-container a:hover {
+    
+    border-bottom: none !important;
+}

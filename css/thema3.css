@@ -1,0 +1,59 @@
+ /* Container für die Social Cards nebeneinander */
+.dual-card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+
+}
+
+/* Die Karten-Basis (falls nicht in meins.css) */
+.topic-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 15px;
+    text-decoration: none !important;
+    transition: transform 0.3s ease;
+}
+
+/* Video-Styling */
+.video-container {
+    max-height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    }
+
+/* Spezielle Anpassung für Social-Media-Karten */
+.social-card {
+    background-color: #ebd8ff; /* Dein helleres Pink/Lila */
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+}
+
+.social-card p {
+    color: #734F96; /* Dunkleres Lila für den Text */
+}
+
+/* Hover-Effekt wie bei den anderen Karten */
+.social-card:hover {
+    transform: translateY(-5px); /* Leichte Bewegung nach oben */
+    box-shadow: 12px 12px 0px rgba(115, 79, 150, 0.3);
+    
+}
+/* Entfernt den border-bottom-Effekt aus der impressum.css für die Karten */
+.legal-container .dual-card-container a, 
+.legal-container .dual-card-container a:hover {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* Falls der Text innerhalb der Karten noch Standard-Browser-Links-Farben oder Unterstriche hat */
+.social-card * {
+    text-decoration: none !important;
+}

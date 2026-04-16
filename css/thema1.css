@@ -1,0 +1,28 @@
+
+body {
+    background-color: #ebd8ff !important; /* Identisch zum Impressum Soft-Lila */
+    color: #734F96; 
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    display: block; /* Normaler Scroll-Fluss */
+}
+main {
+    height: 80vh;
+}
+/* Die gesamte Glossar-Karte */
+.glossar-card-bg {
+    background-color: #ffe0f7; /* Weißer Hintergrund für den Karten-Look */
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+/* Hover-Effekt wie bei den anderen Karten */
+.glossar-card-bg:hover {
+    transform: translateY(-5px); /* Leichte Bewegung nach oben */
+    box-shadow: 12px 12px 0px rgba(115, 79, 150, 0.3);
+}

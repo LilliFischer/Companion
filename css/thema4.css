@@ -1,0 +1,51 @@
+.menti-input-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#space-input {
+    padding: 12px 20px;
+    background:  #ffe0f7;
+    border: 1px solid #d60270;
+    border-radius: 30px;
+    font-family: 'StandardFont', sans-serif;
+    outline: none;
+    width: 60%;
+    color: #734F96;
+    font-size: 0.8rem;
+}
+
+.menti-button {
+    background: #d60270;
+    color: #ffe0f7;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-family: 'StandardFont', sans-serif;
+    font-size: 0.75rem;
+}
+
+.wordcloud-container {
+    background: #ebd8ff;
+    padding: 50px;
+    border-radius: 20px;
+    min-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+    
+    overflow: hidden; /* Verhindert Ausbrechen riesiger Wörter */
+}
+
+.cloud-tag {
+    font-family: 'QueeringFont', sans-serif;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    cursor: default;
+    line-height: 1;
+}

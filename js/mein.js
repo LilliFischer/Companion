@@ -67,30 +67,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function maintainLoop() {
         const isHorizontal = window.innerWidth >= 1024;
-        
-        if (isHorizontal) {
-            const scrollX = vitrineGrid.scrollLeft;
-            // Nutze die exakte Breite der ersten Karte + Gap
-            const cardWidth = vitrineCards[0].offsetWidth;
-            const gap = 30; // Muss exakt dem 'gap' in der landing.css entsprechen
-            const singleSetWidth = originalCardCount * (cardWidth + gap);
+        const gap = 30; // Exakt wie im CSS definiert!
     
-            // KORREKTUR: Der Sprung muss exakt die Breite eines ganzen Sets betragen
-            if (scrollX <= 0) {
-                vitrineGrid.scrollLeft = singleSetWidth;
-            } else if (scrollX >= singleSetWidth * 2) {
+        if (isHorizontal) {
+            const cardWidth = vitrineCards[0].offsetWidth;
+            const cardFullWidth = cardWidth + gap;
+            const singleSetWidth = originalCardCount * cardFullWidth;
+            const scrollX = vitrineGrid.scrollLeft;
+    
+            // Wenn wir am Ende des zweiten Sets (Klons) angekommen sind, 
+            // springen wir unbemerkt zurück zum Anfang des zweiten Sets.
+            if (scrollX >= singleSetWidth * 2) {
                 vitrineGrid.scrollLeft = scrollX - singleSetWidth;
+            } 
+            // Wenn wir rückwärts scrollen und das erste Set verlassen:
+            else if (scrollX <= 0) {
+                vitrineGrid.scrollLeft = singleSetWidth;
             }
         } else {
             const scrollY = vitrineGrid.scrollTop;
-            const cardHeight = vitrineCards[0].offsetHeight;
+            // Berechne die reale Höhe eines kompletten Sets (Originale + Gaps)
             const gapY = 30; 
-            const singleSetHeight = originalCardCount * (cardHeight + gapY);
-    
+            let totalSetHeight = 0;
+            // Wir summieren die Höhen der ersten originalCardCount Karten
+            for(let i = 0; i < originalCardCount; i++) {
+                totalSetHeight += vitrineCards[i].offsetHeight + gapY;
+            }
+        
             if (scrollY <= 0) {
-                vitrineGrid.scrollTop = singleSetHeight;
-            } else if (scrollY >= singleSetHeight * 2) {
-                vitrineGrid.scrollTop = scrollY - singleSetHeight;
+                // Sprung zum Anfang des zweiten Sets
+                vitrineGrid.scrollTop = totalSetHeight;
+            } else if (scrollY >= totalSetHeight * 2) {
+                // Sprung zurück vom dritten Set zum zweiten Set
+                vitrineGrid.scrollTop = scrollY - totalSetHeight;
             }
         }
     }
