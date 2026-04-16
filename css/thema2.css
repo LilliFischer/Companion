@@ -98,6 +98,7 @@
 /* Foto-Styling */
 .photo-container {
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .comparison-img {
@@ -115,10 +116,39 @@
     margin-top: 10px;
 }
 
-/* Responsive Anpassung für Mobile */
+/* Mobile Fix für Wilde & Waldoff */
 @media (max-width: 768px) {
-    .comparison-grid {
-        flex-direction: column;
+    /* 1. Body-Reset: Verhindert ungewollte Verschiebungen */
+    body.legal-page {
+        text-align: left !important;
+        overflow-x: hidden; /* Verhindert seitliches Scrollen */
+    }
+
+    /* 2. Karten-Anpassung: Entfernt die festen 50px Ränder */
+    .glossar-card-bg {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        margin-top: 20px !important;
+        padding: 15px !important;
+        width: auto !important; /* Lässt die Karte atmen */
+        box-shadow: 6px 6px 0px rgba(214, 2, 112, 0.2) !important; /* Kleinerer Schatten für kleine Screens */
+    }
+
+    /* 3. Container-Reset: Entfernt die einengenden Paddings aus impressum.css */
+    .legal-container {
+        padding: 0 10px !important;
+        margin-top: 60px !important; /* Platz für Nav-Circle */
+    }
+
+    /* 4. Bild-Zentrierung: Sorgt dafür, dass das Alice-Foto mittig steht */
+    .comparison-flex-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .comparison-image-box {
+        flex: 0 0 auto !important;
+        margin-bottom: 15px;
     }
 }
 /* Versteckt den Player komplett */
@@ -165,4 +195,28 @@
     justify-content: center;
     gap: 10px;
     /* ... restliches Styling ... */
+}
+
+/* Erzwingt die Zentrierung der Bild-Box */
+.comparison-image-box {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+/* Entfernt den Standard-Rand, den Browser oft bei <figure> einfügen */
+.comparison-image-box figure {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Sorgt dafür, dass das Bild selbst mittig bleibt */
+.comparison-img {
+    display: block !important;
+    margin: 0 auto !important;
 }

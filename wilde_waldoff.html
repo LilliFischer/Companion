@@ -72,7 +72,7 @@
     </div>
 <section class="legal-section">
 </section>
-<h2 class="legal-title">Oscar Wilde & Alice Guszalewicz</h2>
+<h2 class="legal-title" style="text-align: center;">Oscar Wilde & Alice Guszalewicz</h2>
 <section class="legal-section">
   <section class="glossar-card-bg">
   <h2 class="glossar-title">Zwei Welten</h2>
@@ -85,7 +85,7 @@
       <div class="comparison-column stage-side">
           <h3 class="side-title" style="text-align: center;">Bühne</h3>
           <div class="photo-container" >
-              <img src="assets/images/alice.jpeg" alt="Alice Guszalewicz als Salome" class="comparison-img" style="margin-left: 30%;">
+              <img src="assets/images/alice.jpeg" alt="Alice Guszalewicz als Salome" class="comparison-img">
               <p class="photo-label" style="text-align: center;">Alice Guszalewicz als Oktavian<br>
               Quelle: Stadt- und Univ.-Bibliothek, Frankfurt am Main</p>
           </div>
@@ -112,8 +112,8 @@
 
 <section class="legal-section">
 </section>
-  <h2 class="legal-title">Claire Waldoff</h2>
-  <section class="legal-section">
+  <h2 class="legal-title" style="text-align: center;">Claire Waldoff</h2>
+  <section class="legal-section" style="text-align: center;">
     <p>Waldoffs Chansons waren mehr als Unterhaltung; sie setzten sich kritisch mit zeitgenössischen Geschlechternormen auseinander. Ein Beispiel für ihren humorvollen Umgang mit gesellschaftlichen Konventionen und zwischenmenschlichen Dynamiken ist das Lied „Warum soll er nich mit ihr“ (1924). Darin zeigt sich Waldoffs Gespür für den Zeitgeist des Berlins der 1920er Jahre sowie ihre spielerische Auseinandersetzung mit gängigen Rollenbildern.
     </p>
     </section>
@@ -122,8 +122,13 @@
     <div id="youtube-player"></div>
 
     <button id="play-audio-btn" class="audio-btn">
-        <span class="btn-icon">▶</span> Lied hören
-    </button>
+      <span class="btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+              <path d="M8 5v14l11-7z"/>
+          </svg>
+      </span>
+      Lied hören
+  </button>
 
     <script src="https://www.youtube.com/iframe_api"></script>
 <script>
@@ -147,7 +152,12 @@
             const state = player.getPlayerState();
             if (state === 1) { // 1 = spielt
                 player.pauseVideo();
-                btn.innerHTML = '<span class="btn-icon">▶</span> Play';
+                btn.innerHTML = `
+        <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </span> Play`;
             } else {
                 player.playVideo();
                 btn.innerHTML = '<span class="btn-icon">❚❚</span> Pause';
@@ -162,8 +172,8 @@
   </a></p>
   </div>
   <br>
-  <h2 >dritte Strophe & Refrain</h2>
-  <p>Jedes Mädchen braucht doch schließlich wat für's Herz
+  <h2 style="text-align: center;">dritte Strophe & Refrain</h2>
+  <p style="text-align: center;">Jedes Mädchen braucht doch schließlich wat für's Herz
     <br>Ohne Scherz!
     <br>Und die Mütter denken immer ville schlimmer
     <br>Habn keen' Schimmer
@@ -176,7 +186,7 @@
     <br>Und die Liebe, ach herrje
     <br>Wär passé
   </p>
-    <p>Warum soll er nich mit ihr vor de Türe stehn?
+    <p style="text-align: center;">Warum soll er nich mit ihr vor de Türe stehn?
     <br>Warum soll er nich mit ihr mal konditern jehn?
     <br>Warum soll er nich mit ihr, wehn die Frühlingslüfte zart
     <br>Machen mal uff de Spree eene Mondscheinfahrt?
@@ -191,7 +201,7 @@
   
  
 <section class="legal-section">
-  <p style="font-size: 1rem;">Kuratiert und verfasst von <strong>Lilli Fischer</strong>  in Zusammenarbeit mit <strong>Mia</strong></p>
+  <p style="font-size: 1rem; text-align: center;">Kuratiert und verfasst von <strong>Lilli Fischer</strong>  in Zusammenarbeit mit <strong>Mia</strong></p>
 </section>
 <section class="legal-section">
   
