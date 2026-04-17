@@ -126,8 +126,7 @@
 
     /* 2. Karten-Anpassung: Entfernt die festen 50px Ränder */
     .glossar-card-bg {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
+        
         margin-top: 20px !important;
         padding: 15px !important;
         width: auto !important; /* Lässt die Karte atmen */
