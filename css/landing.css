@@ -125,13 +125,14 @@ perspective: 1000px;
 .vitrine-card {
 display: block;
 max-width: 100%;
-height: 250px;
+height: 200px;
 flex-shrink: 0;
 text-decoration: none;
 color: inherit;
 scroll-snap-align: center;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
 transform: scale(0.8);
+padding-bottom: 50px;
 }
 
 @media (min-width: 1024px) {
@@ -146,9 +147,9 @@ transform: scale(0.8);
       scroll-snap-type: none; /* Einrasten jetzt horizontal */
       scroll-behavior: auto;
       align-items: center;      /* Karten vertikal mittig ausrichten */
-      gap: 30px;
+      gap: 50px;
   }
-
+ 
   .vitrine-card {
       width: 300px;             /* Feste Breite für die Karten im Laptop-Modus */
       height: 400px;
@@ -157,12 +158,13 @@ transform: scale(0.8);
       transform: scale(0.9);    /* Etwas kleiner als Standard */
       max-width: none;
       justify-content: center;
+      display: flex;
+  flex-direction: column;
     }
     .detail-card {
-      display: none;
+      
       font-size: 1.2em;
       text-align: center;
-      margin-top: 70px;
       }
 }
 
@@ -179,13 +181,15 @@ padding-top: 90px;
 
 .vitrine-card.active .inner-card {
   display: none;
-  opacity: 0;
+  opacity: 1;
     transform: scale(0.9);
+
 }
 
 .vitrine-card.active .detail-card {
   display: block;
 }
+
 
 /* Overlay abgeschaltet */
 #card-detail-overlay {
@@ -205,3 +209,10 @@ padding-top: 90px;
 .inner-card {
     height: 100%;
 }
+
+.detail-card {
+  opacity: 0;
+  animation: slideInTitle 1s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  margin-top: 0px;
+  }

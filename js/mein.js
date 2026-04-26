@@ -95,11 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         
             if (scrollY <= 0) {
-                // Sprung zum Anfang des zweiten Sets
-                vitrineGrid.scrollTop = totalSetHeight;
+                vitrineGrid.scrollTop = totalSetHeight; // Springe zum Ende des ersten Sets
             } else if (scrollY >= totalSetHeight * 2) {
-                // Sprung zurück vom dritten Set zum zweiten Set
-                vitrineGrid.scrollTop = scrollY - totalSetHeight;
+                vitrineGrid.scrollTop = scrollY - totalSetHeight; // Springe zurück zum Anfang des zweiten Sets
             }
         }
     }
