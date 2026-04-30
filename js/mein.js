@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cloneTop.forEach(c => vitrineGrid.insertBefore(c, vitrineGrid.firstChild));
     cloneBottom.forEach(c => vitrineGrid.appendChild(c));
-
     // Liste ALLER Karten aktualisieren
     vitrineCards = Array.from(document.querySelectorAll('.vitrine-card'));
 
@@ -51,57 +50,64 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================
     // --- FUNKTION: ZUFÄLLIGER STARTPUNKT BERECHNEN ---
     // ==========================================================
-    
-    const randomStartIndex = Math.floor(Math.random() * originalCardCount);
-    const scrollOffsetToRandomCard = randomStartIndex * cardHeightWithGap;
-    
-    const gridCenterOffset = (vitrineGrid.clientHeight / 2) - (cardHeight / 2);
-    
-    const initialScrollPosition = singleSetHeight + scrollOffsetToRandomCard - gridCenterOffset;
+    const startIndex = Math.floor(Math.random() * originalCardCount);
+// 1. Höhe des kompletten ersten Klon-Sets berechnen
+let firstSetHeight = 0;
+const gapY = 30; // Gap aus landing.css
+for(let i = 0; i < originalCardCount; i++) {
+    firstSetHeight += vitrineCards[i].offsetHeight + gapY;
+}
 
-    // Setze die Scroll-Position
-    vitrineGrid.scrollTop = initialScrollPosition;
+// 2. Offset innerhalb des zweiten Sets berechnen (hier 0, da wir bei Karte 1 starten)
+let scrollOffsetInSecondSet = 0;
+for(let i = 0; i < startIndex; i++) {
+    scrollOffsetInSecondSet += vitrineCards[i + originalCardCount].offsetHeight + gapY;
+}
 
+// 3. Zentrierung berechnen, damit die erste Karte exakt mittig steht
+const gridCenterOffset = (vitrineGrid.clientHeight / 2) - (vitrineCards[originalCardCount].clientHeight / 2);
 
-    // --- FUNKTION: LOOP WARTUNG ---
+// Finale Scroll-Position: Ende Set 1 + Position in Set 2 - Zentrierung
+const initialScrollPosition = firstSetHeight + scrollOffsetInSecondSet - gridCenterOffset;
 
-    function maintainLoop() {
-        const isHorizontal = window.innerWidth >= 1024;
-        const gap = 30; // Exakt wie im CSS definiert!
-    
-        if (isHorizontal) {
-            const cardWidth = vitrineCards[0].offsetWidth;
-            const cardFullWidth = cardWidth + gap;
-            const singleSetWidth = originalCardCount * cardFullWidth;
-            const scrollX = vitrineGrid.scrollLeft;
-    
-            // Wenn wir am Ende des zweiten Sets (Klons) angekommen sind, 
-            // springen wir unbemerkt zurück zum Anfang des zweiten Sets.
-            if (scrollX >= singleSetWidth * 2) {
-                vitrineGrid.scrollLeft = scrollX - singleSetWidth;
-            } 
-            // Wenn wir rückwärts scrollen und das erste Set verlassen:
-            else if (scrollX <= 0) {
-                vitrineGrid.scrollLeft = singleSetWidth;
-            }
-        } else {
-            const scrollY = vitrineGrid.scrollTop;
-            // Berechne die reale Höhe eines kompletten Sets (Originale + Gaps)
-            const gapY = 30; 
-            let totalSetHeight = 0;
-            // Wir summieren die Höhen der ersten originalCardCount Karten
-            for(let i = 0; i < originalCardCount; i++) {
-                totalSetHeight += vitrineCards[i].offsetHeight + gapY;
-            }
-        
-            if (scrollY <= 0) {
-                vitrineGrid.scrollTop = totalSetHeight; // Springe zum Ende des ersten Sets
-            } else if (scrollY >= totalSetHeight * 2) {
-                vitrineGrid.scrollTop = scrollY - totalSetHeight; // Springe zurück zum Anfang des zweiten Sets
-            }
+// Die Scroll-Position beim Laden sofort setzen
+vitrineGrid.scrollTop = initialScrollPosition;
+// --- FUNKTION: LOOP WARTUNG ---
+
+let lastScrollY = 0;
+
+function maintainLoop() {
+    const isHorizontal = window.innerWidth >= 1024;
+
+    if (!isHorizontal) {
+        const gapY = 80; 
+        let totalSetHeight = 0;
+
+        for (let i = 0; i < originalCardCount; i++) {
+            totalSetHeight += vitrineCards[i].offsetHeight + gapY;
+        }
+
+        const scrollY = vitrineGrid.scrollTop;
+
+        // 🔴 Wenn nach oben gescrollt wird → blockieren
+        if (scrollY < lastScrollY) {
+            vitrineGrid.scrollTop = lastScrollY;
+            return;
+        }
+
+        // ✅ Nur nach unten loopen
+        if (scrollY >= totalSetHeight * 2) {
+            vitrineGrid.scrollTop = scrollY - totalSetHeight;
+        }
+
+        lastScrollY = vitrineGrid.scrollTop;
+
+        // horizontales Scrollen verhindern
+        if (vitrineGrid.scrollLeft !== 0) {
+            vitrineGrid.scrollLeft = 0;
         }
     }
-
+}
     // --- FUNKTION: STAGE SICHTBARKEIT & PFEIL ---
 
     function checkVisibility() {

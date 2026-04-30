@@ -105,11 +105,11 @@ height: 100vh;
 width: 50%;
 display: flex;
 flex-direction: column;
-gap: 30px;
+gap: 80px;
 overflow-y: scroll;
 overflow-x: hidden;
 scroll-snap-type: none;
-padding: 10px 0;
+padding: 0;
 -ms-overflow-style: none;
 scrollbar-width: none;
 align-items: center;
@@ -132,7 +132,10 @@ color: inherit;
 scroll-snap-align: center;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
 transform: scale(0.8);
-padding-bottom: 50px;
+padding-bottom: 0 !important;
+will-change: transform, opacity; /* Bereitet den Browser auf Animationen vor */
+    backface-visibility: hidden;    /* Verhindert Flackern bei 3D-Effekten */
+    transform: translateZ(0);
 }
 
 @media (min-width: 1024px) {
@@ -142,9 +145,9 @@ padding-bottom: 50px;
       width: 100%;            /* Volle Breite für das Karussell */
      max-width: 100%;
      padding: 0 20vw;
-      overflow-x: auto;       /* Scrollen jetzt horizontal */
+      overflow-x: auto !important;       /* Scrollen jetzt horizontal */
       overflow-y: hidden;       /* Vertikales Scrollen im Grid deaktivieren */
-      scroll-snap-type: none; /* Einrasten jetzt horizontal */
+      scroll-snap-type: x mandatory; /* Einrasten jetzt horizontal */
       scroll-behavior: auto;
       align-items: center;      /* Karten vertikal mittig ausrichten */
       gap: 50px;
