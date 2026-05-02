@@ -1,4 +1,4 @@
-const blacklist = ["schlecht", "doof", "hässlich"]; 
+const blacklist = ['schwuchtel', 'transe', 'blau', 'afd', 'ekelhaft', 'ekelig','missgeburt','pervers','krank','krankhaft','krankhafter','gestört','heilbar','heilung','genderwahn','störung','ideologie','propaganda','unnormal'];
 
 document.addEventListener("DOMContentLoaded", renderFeedback);
 
