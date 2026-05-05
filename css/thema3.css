@@ -27,6 +27,16 @@
     box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
     }
 
+    .video-container-reel {
+        display: block; /* Standard-Blockverhalten */
+        margin: 0 auto; /* Zentriert das Element horizontal */
+        max-height: 480px;
+        max-width: 400px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 10px 10px 0px rgba(214, 2, 112, 0.2); /* Lila Schatten im Poster-Stil */
+        }
+
 /* Spezielle Anpassung für Social-Media-Karten */
 .social-card {
     background-color: #ebd8ff; /* Dein helleres Pink/Lila */

@@ -43,17 +43,20 @@
     align-items: center;
     width: 100%;
     font-family: 'StandardFont', sans-serif;
+     
+    height: auto; 
+    
   }
     
 #stage1 {
-  height: 150vh;
+  min-height: 150vh;
   padding-top: 70px;
   background-color: #ffe0f7;
   color: #734F96;
 }
 
 #stage2 {
-  height: 100vh;
+  min-height: 100vh;
   background-color:#ebd8ff;
   font-family: 'StandardFont', sans-serif;
   color: #d60270;

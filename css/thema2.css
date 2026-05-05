@@ -108,6 +108,20 @@
     box-shadow: 8px 8px 0px rgba(214, 2, 112, 0.2); /* Dein Poster-Schatten */
     display: block;
 }
+.photo-container-s {
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.comparison-img-s {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 8px 8px 0px rgba(214, 2, 112, 0.2); /* Dein Poster-Schatten */
+    display: block;
+}
+
+
 
 .photo-label {
     font-size: 0.8rem;
@@ -115,6 +129,8 @@
     color: #734F96;
     margin-top: 10px;
 }
+
+
 
 /* Mobile Fix für Wilde & Waldoff */
 @media (max-width: 768px) {
