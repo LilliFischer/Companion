@@ -255,3 +255,15 @@ vitrineGrid.addEventListener("touchmove", e => {
         highlightCenterCard();
     }, 100); 
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const scrollContainer = document.querySelector('.vitrine-grid');
+  
+    scrollContainer.addEventListener("wheel", (evt) => {
+      // Nur im Desktop-Modus (Row-Layout) anwenden
+      if (window.innerWidth >= 1024) {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+      }
+    }, { passive: false });
+  });

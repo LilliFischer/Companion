@@ -1,53 +1,50 @@
-
 @keyframes slideInTitle {
-    0% { opacity: 0; transform: translateY(50px); }
-    100% { opacity: 1; transform: translateY(0); }
-    }
-    
-    .delayed-appearance {
-    opacity: 0;
-    animation: slideInTitle 1s ease-out forwards;
-    animation-delay: var(--delay, 0s);
-    margin-top: 0px;
-    }
+  0% { opacity: 0; transform: translateY(50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 
-    body {
-    background-color: #ffe0f7;
-    }
+.delayed-appearance {
+  opacity: 0;
+  animation: slideInTitle 1s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  margin-top: 0px;
+}
 
-    main {
-      scroll-snap-type: y proximity;
-      height: 100vh;
-      overflow-y: scroll;
-      scroll-behavior: smooth;
-      display: flex;          /* NEU: Aktiviert Flexbox */
-      flex-direction: column; /* NEU: Stapelt die Sektionen untereinander */
-      align-items: stretch;    /* NEU: Zentriert alle Sektionen horizontal */
-      width: 100%;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      }
+body {
+  background-color: #ffe0f7;
+}
 
-    #main-header {
-    margin-bottom: 240px;
-    text-align: center;
-    width: 100%;
-    }
-    
-  #stage1, #stage2 {
-    scroll-snap-align: start;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-family: 'StandardFont', sans-serif;
-     
-    height: auto; 
-    
-  }
-    
+main {
+  scroll-snap-type: y proximity;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#main-header {
+  margin-bottom: 240px;
+  text-align: center;
+  width: 100%;
+}
+
+#stage1, #stage2 {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: 'StandardFont', sans-serif;
+  height: auto;
+}
+
 #stage1 {
   min-height: 150vh;
   padding-top: 70px;
@@ -57,13 +54,12 @@
 
 #stage2 {
   min-height: 100vh;
-  background-color:#ebd8ff;
+  background-color: #ebd8ff;
   font-family: 'StandardFont', sans-serif;
   color: #d60270;
 }
 
-
-/* --- 1. PULSIERENDE ANIMATION DEFINIEREN --- */
+/* --- ANIMATIONEN --- */
 
 @keyframes pulse {
   0% { transform: scale(1); opacity: 0.8; }
@@ -76,125 +72,124 @@
   50% { transform: translateY(-5px); }
 }
 
-
-/* --- 2. SCROLL-INDIKATOR STYLES --- */
+/* --- SCROLL-INDIKATOR --- */
 
 #scroll-indicator {
-  position: fixed; /* Fixiert den Pfeil im Viewport */
-  bottom: 30px;    /* Abstand vom unteren Rand */
-  left: 49%;      /* Zentriert den Pfeil horizontal */
-  transform: translateX(-50%); /* Horizontal zentrieren */
-  z-index: 999; 
+  position: fixed;
+  bottom: 30px;
+  left: 49%;
+  transform: translateX(-50%);
+  z-index: 999;
   color: #d60270;
-  
-  opacity: 0; 
-    transition: opacity 0s ease, transform 0.5s ease; /* Fügt schnelle Transition hinzu */
-  }
+  opacity: 0;
+  transition: opacity 0s ease, transform 0.5s ease;
+}
 
 #scroll-indicator.active {
-  opacity: 1; /* Sichtbar, wenn die Klasse active gesetzt ist */
-  animation: float 1.5s ease-in-out infinite; /* Leichte Auf-Ab-Bewegung */
+  opacity: 1;
+  animation: float 1.5s ease-in-out infinite;
 }
 
 #scroll-indicator .icon {
   width: 30px;
   height: 30px;
-  animation: pulse 1.5s infinite; /* Die pulsierende Animation */
+  animation: pulse 1.5s infinite;
 }
 
-/* --- GRID MIT 3D EFFEKT --- */
+/* --- GRID --- */
+
 .vitrine-grid {
-height: 100vh;
-width: 50%;
-display: flex;
-flex-direction: column;
-gap: 30px;
-overflow-y: auto;
-overflow-x: hidden;
-scroll-snap-type: none;
-padding: 10px 0;
--ms-overflow-style: none;
-scrollbar-width: none;
-align-items: center;
-perspective: 1000px; 
-    perspective-origin: center;
-    overscroll-behavior: contain; /* Verhindert das "Springen" beim Scrollen */
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  padding: 10px 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  align-items: center;
+  perspective: 1000px;
+  perspective-origin: center;
+  overscroll-behavior: contain;
 }
 
-/* Versteckt die Scrollbar auch im horizontalen Modus */
+/* Versteckt die Scrollbar im mobilen/vertikalen Modus */
 .vitrine-grid::-webkit-scrollbar {
   display: none;
 }
 
 .vitrine-card {
-display: block;
-max-width: 100%;
-height: 200px;
-flex-shrink: 0;
-text-decoration: none;
-color: inherit;
-scroll-snap-align: center;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-transform: scale(0.8);
-padding-bottom: 50px;
+  display: block;
+  max-width: 100%;
+  height: 200px;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+  scroll-snap-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(0.8);
+  padding-bottom: 50px;
+} /* KORREKTUR: Hier war die schließende Klammer vergessen worden */
 
-}
+/* --- DESKTOP MODUS (Media Query) --- */
 
 @media (min-width: 1024px) {
   .vitrine-grid {
-      flex-direction: row;      /* Von oben-nach-unten zu links-nach-rechts */
-      height: 60vh;          /* Nutzt fast die volle Bildschirmbreite */
-      width: 100%;            /* Volle Breite für das Karussell */
-     max-width: 100%;
-     padding: 0 20vw;
-      overflow-x: auto;       /* Scrollen jetzt horizontal */
-      overflow-y: hidden;       /* Vertikales Scrollen im Grid deaktivieren */
-      scroll-snap-type: none; /* Einrasten jetzt horizontal */
-      scroll-behavior: auto;
-      align-items: center;      /* Karten vertikal mittig ausrichten */
-      gap: 50px;
+    flex-direction: row;
+    height: 60vh;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 20vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    align-items: center;
+    gap: 50px;
   }
- 
+
+  
   .vitrine-card {
-      width: 300px;             /* Feste Breite für die Karten im Laptop-Modus */
-      height: 400px;
-      flex-shrink: 0;           /* Verhindert, dass die Karten zusammengedrückt werden */
-      scroll-snap-align: center;
-      transform: scale(0.9);    /* Etwas kleiner als Standard */
-      max-width: none;
-      justify-content: center;
-      display: flex;
-  flex-direction: column;
-    }
-    .detail-card {
-      
-      font-size: 1.2em;
-      text-align: center;
-      }
+    width: 300px;
+    height: 400px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    transform: scale(0.9);
+    max-width: none;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .detail-card {
+    font-size: 1.2em;
+    text-align: center;
+  }
 }
 
-/* Inhalt getrennt: Standard + Detailmodus */
-
+/* --- INHALTS-ZUSTÄNDE --- */
 
 .detail-card {
-display: none;
-font-size: 1.2em;
-text-align: center;
-padding-top: 90px;
-
+  display: none;
+  font-size: 1.2em;
+  text-align: center;
+  padding-top: 90px;
+  opacity: 0;
+  animation: slideInTitle 1s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  margin-top: 0px;
 }
 
 .vitrine-card.active .inner-card {
   display: none;
   opacity: 1;
-    transform: scale(0.9);
-
+  transform: scale(0.9);
 }
 
 .vitrine-card.active .detail-card {
   display: block;
 }
-
 
 /* Overlay abgeschaltet */
 #card-detail-overlay {
@@ -202,22 +197,15 @@ padding-top: 90px;
 }
 
 .vitrine-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
-.vitrine-card .detail-card{
-    height: 200px; /* fix */
+.vitrine-card .detail-card {
+  height: 200px;
 }
 
 .inner-card {
-    height: 100%;
+  height: 100%;
 }
-
-.detail-card {
-  opacity: 0;
-  animation: slideInTitle 1s ease-out forwards;
-  animation-delay: var(--delay, 0s);
-  margin-top: 0px;
-  }
