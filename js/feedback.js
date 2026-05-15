@@ -11,6 +11,7 @@ async function renderFeedback() {
 
     try {
         // Cache-Buster hinzufügen, damit wir immer die aktuellsten Daten bekommen
+        
         const response = await fetch(scriptURL + "?nocache=" + Date.now(), {
             cache: "no-store"
         });
