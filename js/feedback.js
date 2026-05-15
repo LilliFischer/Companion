@@ -1,46 +1,59 @@
-const blacklist = ['schwuchtel', 'transe', 'blau', 'afd', 'ekelhaft', 'ekelig','missgeburt','pervers','krank','krankhaft','krankhafter','gestört','heilbar','heilung','genderwahn','störung','ideologie','propaganda','unnormal'];
+const scriptURL = "https://script.google.com/macros/s/AKfycbx3Oa2phlL-59abKZE0FTTo3ww6ShHUjWCYG532k1sQhxhkJZ6oH9EoYlxxMNu4IVhrVg/exec";
 
-document.addEventListener("DOMContentLoaded", renderFeedback);
-
-function addTerm() {
-    const input = document.getElementById("space-input");
-    let text = input.value.trim();
-
-    if (text === "") return;
-
-    const containsBadWord = blacklist.some(word => text.toLowerCase().includes(word));
-    
-    if (containsBadWord) {
-        alert("Dein Feedback enthält unangebrachte Sprache.");
-        return;
-    }
-
-    const feedbacks = JSON.parse(localStorage.getItem("exhibition_feedback") || "[]");
-    feedbacks.push({ id: Date.now(), text: text });
-    localStorage.setItem("exhibition_feedback", JSON.stringify(feedbacks));
-
-    input.value = "";
+// WICHTIG: Die Liste direkt beim Laden der Seite anzeigen
+document.addEventListener("DOMContentLoaded", () => {
     renderFeedback();
-}
+});
 
-function renderFeedback() {
+async function renderFeedback() {
     const list = document.getElementById("feedbackList");
-    const feedbacks = JSON.parse(localStorage.getItem("exhibition_feedback") || "[]");
+    if (!list) return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const isAdmin = urlParams.get('admin') === 'true';
+    try {
+        // Cache-Buster hinzufügen, damit wir immer die aktuellsten Daten bekommen
+        const response = await fetch(scriptURL + "?nocache=" + Date.now());
+        const feedbacks = await response.json();
 
-    list.innerHTML = feedbacks.map(f => `
-        <div class="feedback-item">
-            <p>${f.text}</p>
-            ${isAdmin ? `<span class="delete-btn" onclick="deleteFeedback(${f.id})">Löschen</span>` : ''}
-        </div>
-    `).join("");
+        // Admin-Check (für die Löschfunktion später)
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('admin') === 'true';
+
+        list.innerHTML = feedbacks.map(f => `
+            <div class="feedback-item">
+                <p>${f.text}</p>
+                ${isAdmin ? `<span class="delete-btn" style="color:red; cursor:pointer;" onclick="deleteFeedback('${f.id}')">Löschen</span>` : ''}
+            </div>
+        `).reverse().join(""); // .reverse(), damit das Neuste oben steht
+
+    } catch (error) {
+        console.error("Fehler beim Laden:", error);
+        list.innerHTML = "<p>Feedback konnte nicht geladen werden.</p>";
+    }
 }
 
-function deleteFeedback(id) {
-    let feedbacks = JSON.parse(localStorage.getItem("exhibition_feedback") || "[]");
-    feedbacks = feedbacks.filter(f => f.id !== id);
-    localStorage.setItem("exhibition_feedback", JSON.stringify(feedbacks));
-    renderFeedback();
+async function addTerm() {
+
+    const input = document.getElementById("space-input");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    const newFeedback = {
+        id: Date.now().toString(),
+        text: text
+    };
+
+    try {
+
+        await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(newFeedback)
+        });
+
+        input.value = "";
+        renderFeedback();
+
+    } catch (error) {
+        console.error("Fehler beim Senden:", error);
+    }
 }
