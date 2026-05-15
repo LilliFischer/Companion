@@ -46,6 +46,7 @@
     font-family: 'QueeringFont', sans-serif;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
+    font-size: 30px;
     cursor: default;
     line-height: 1;
 }
