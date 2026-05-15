@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback</title>
-    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg?v=2">
-    <link rel="stylesheet" href="css/meins.css">
-    <link rel="stylesheet" href="css/impressum.css">
-    <link rel="stylesheet" href="css/thema4.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        .feedback-item { 
-        background: #ebd8ff; 
-        padding: 15px; 
-        border-radius: 15px; 
-        margin-bottom: 15px; 
-        position: relative; 
-        box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2);
-        
-        /* Sorgt dafür, dass die Box mitwächst */
-        height: auto; 
-        min-height: 50px;
-        display: block;
-        
-        /* Textumbruch erzwingen, falls lange Wörter ohne Leerzeichen kommen */
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        white-space: normal;
-    }
-</style>
-    <script src="js/feedback.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Feedback</title>
+    
+        <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg?v=2">
+        <link rel="stylesheet" href="css/meins.css">
+        <link rel="stylesheet" href="css/impressum.css">
+        <link rel="stylesheet" href="css/thema4.css">
+    
+        <!-- RICHTIGER Supabase Link -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+
+        <!-- Dein Script -->
+        <script src="js/feedback.js" defer></script>
+    
+        <style>
+            .feedback-item {
+                background: #ebd8ff;
+                padding: 15px;
+                border-radius: 15px;
+                margin-bottom: 15px;
+                position: relative;
+                box-shadow: 5px 5px 0px rgba(214, 2, 112, 0.2);
+                height: auto;
+                min-height: 50px;
+                display: block;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: normal;
+            }
+        </style>
+    </head>
+    
 <body class="legal-page">
 
     <nav id="permanent-nav">

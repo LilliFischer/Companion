@@ -1,50 +1,60 @@
-const supabaseUrl = "https://ipiwdmzxmrbvbaxknvix.supabase.co";
-const supabaseKey = "sb_publishable_9WuTIWmkYP_brQIv7NhiHQ_vwUOhXUN";
+// Verbindung zu Supabase herstellen
+const SUPABASE_URL = 'https://kagjerpcmckuqjjcguqw.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Sh-irHAOgvgeuf9724BcGQ_g4j42E5x';
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const client = supabase.createClient(supabaseUrl, supabaseKey);
+// Elemente aus HTML greifen
+const feedbackList = document.getElementById('feedbackList');
+const spaceInput = document.getElementById('space-input');
 
+function addFeedbackToList(item) {
+    const div = document.createElement('div');
+    div.className = 'feedback-item';
+    div.textContent = item.text;
+    feedbackList.prepend(div); // Neue zuerst
+  }
+  
+// Feedback hinzufügen
 async function addTerm() {
+  const text = spaceInput.value.trim();
+  if (!text) return;
 
-    const input = document.getElementById("space-input");
-    const text = input.value.trim();
+  const { error } = await client.from('feedback').insert([{ text }]);
+  if (error) {
+    alert('Fehler beim Speichern: ' + error.message);
+    return;
+  }
 
-    if (!text) return;
-
-    const newItem = {
-        id: Date.now().toString(),
-        text: text
-    };
-
-    const { error } = await client
-        .from("feedback")
-        .insert([newItem]);
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    input.value = "";
-    renderFeedback();
+  spaceInput.value = '';
+  loadFeedback(); // Liste aktualisieren
 }
-async function renderFeedback() {
 
-    const list = document.getElementById("feedbackList");
+// Alle Feedbacks laden
+async function loadFeedback() {
+  const { data, error } = await client
+    .from('feedback')
+    .select('*')
+    .order('created_at', { ascending: false });
+    console.log("Geladene Daten:", data, "Error:", error);
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-    const { data, error } = await client
-        .from("feedback")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-    if (error) {
-        console.error(error);
-        list.innerHTML = "<p>Fehler beim Laden</p>";
-        return;
-    }
-
-    list.innerHTML = data.map(f => `
-        <div class="feedback-item">
-            <p>${f.text}</p>
-        </div>
-    `).join("");
+  feedbackList.innerHTML = '';
+  data.forEach(addFeedbackToList);
 }
+
+client
+  .channel('public:feedback')
+  .on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: 'feedback' },
+    (payload) => {
+      addFeedbackToList(payload.new);
+    }
+  )
+  .subscribe();
+
+// Beim Laden der Seite Feedbacks anzeigen
+window.addEventListener('DOMContentLoaded', loadFeedback);
