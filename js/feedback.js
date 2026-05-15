@@ -11,7 +11,10 @@ async function renderFeedback() {
 
     try {
         // Cache-Buster hinzufügen, damit wir immer die aktuellsten Daten bekommen
-        const response = await fetch(scriptURL + "?nocache=" + Date.now());
+        const response = await fetch(scriptURL + "?nocache=" + Date.now(), {
+            cache: "no-store"
+        });
+        
         const feedbacks = await response.json();
 
         // Admin-Check (für die Löschfunktion später)
