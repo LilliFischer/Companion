@@ -1,39 +1,7 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbx3Oa2phlL-59abKZE0FTTo3ww6ShHUjWCYG532k1sQhxhkJZ6oH9EoYlxxMNu4IVhrVg/exec";
+const supabaseUrl = "https://ipiwdmzxmrbvbaxknvix.supabase.co";
+const supabaseKey = "sb_publishable_9WuTIWmkYP_brQIv7NhiHQ_vwUOhXUN";
 
-// WICHTIG: Die Liste direkt beim Laden der Seite anzeigen
-document.addEventListener("DOMContentLoaded", () => {
-    renderFeedback();
-});
-
-async function renderFeedback() {
-    const list = document.getElementById("feedbackList");
-    if (!list) return;
-
-    try {
-        // Cache-Buster hinzufügen, damit wir immer die aktuellsten Daten bekommen
-        
-        const response = await fetch(scriptURL + "?nocache=" + Date.now(), {
-            cache: "no-store"
-        });
-        
-        const feedbacks = await response.json();
-
-        // Admin-Check (für die Löschfunktion später)
-        const urlParams = new URLSearchParams(window.location.search);
-        const isAdmin = urlParams.get('admin') === 'true';
-
-        list.innerHTML = feedbacks.map(f => `
-            <div class="feedback-item">
-                <p>${f.text}</p>
-                ${isAdmin ? `<span class="delete-btn" style="color:red; cursor:pointer;" onclick="deleteFeedback('${f.id}')">Löschen</span>` : ''}
-            </div>
-        `).reverse().join(""); // .reverse(), damit das Neuste oben steht
-
-    } catch (error) {
-        console.error("Fehler beim Laden:", error);
-        list.innerHTML = "<p>Feedback konnte nicht geladen werden.</p>";
-    }
-}
+const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function addTerm() {
 
@@ -42,22 +10,41 @@ async function addTerm() {
 
     if (!text) return;
 
-    const newFeedback = {
+    const newItem = {
         id: Date.now().toString(),
         text: text
     };
 
-    try {
+    const { error } = await client
+        .from("feedback")
+        .insert([newItem]);
 
-        await fetch(scriptURL, {
-            method: "POST",
-            body: JSON.stringify(newFeedback)
-        });
-
-        input.value = "";
-        renderFeedback();
-
-    } catch (error) {
-        console.error("Fehler beim Senden:", error);
+    if (error) {
+        console.error(error);
+        return;
     }
+
+    input.value = "";
+    renderFeedback();
+}
+async function renderFeedback() {
+
+    const list = document.getElementById("feedbackList");
+
+    const { data, error } = await client
+        .from("feedback")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        list.innerHTML = "<p>Fehler beim Laden</p>";
+        return;
+    }
+
+    list.innerHTML = data.map(f => `
+        <div class="feedback-item">
+            <p>${f.text}</p>
+        </div>
+    `).join("");
 }
